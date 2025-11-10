@@ -1,24 +1,31 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import React from "react";
 
-const Dashboard = () => {
-  const { events, deleteEvent } = useContext(AppContext);
+function Dashboard({ events, deleteEvent }) {
+  const containerStyle = { maxWidth: "500px" };
+  const cardStyle = {
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    padding: "10px",
+    marginBottom: "10px"
+  };
+  const buttonStyle = { padding: "3px 8px", cursor: "pointer", marginTop: "5px" };
+
+  if (events.length === 0) return <p>No events yet. Add one!</p>;
 
   return (
-    <div style={{ marginTop: "80px" }}>
-      <h2>Upcoming Events</h2>
-      {events.length === 0 ? <p>No events scheduled.</p> : 
-        <ul>
-          {events.map(ev => (
-            <li key={ev.id}>
-              <strong>{ev.name}</strong> ({ev.date} {ev.time}) - {ev.location}
-              <button onClick={() => deleteEvent(ev.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      }
+    <div style={containerStyle}>
+      <h3>Upcoming Events</h3>
+      {events.map((event, index) => (
+        <div key={index} style={cardStyle}>
+          <strong>{event.name}</strong> <br />
+          {event.date} at {event.time} <br />
+          {event.description && <em>{event.description}</em>} <br />
+          <button style={buttonStyle} onClick={() => deleteEvent(index)}>Delete</button>
+        </div>
+      ))}
     </div>
   );
-};
+}
 
 export default Dashboard;
+

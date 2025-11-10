@@ -1,10 +1,20 @@
-const Help = () => (
-  <div style={{ marginTop: "80px" }}>
-    <h2>Help</h2>
-    <p>Use the navigation above to view your Dashboard, add new events, or access help.</p>
-    <p>To add an event, go to "Add Event", fill in the details, and click "Add Event".</p>
-    <p>To remove an event, click "Delete" next to it in the Dashboard.</p>
-  </div>
-);
+import React from "react";
+
+function Help() {
+  return (
+    <div>
+      <h3>Help</h3>
+      <p>Welcome to My Event Planner! Here’s how to use the app:</p>
+      <ul>
+        <li><strong>Dashboard:</strong> View all your upcoming events.</li>
+        <li><strong>Add Event:</strong> Fill in the form to create a new event.</li>
+        <li><strong>Delete:</strong> Remove any event directly from the Dashboard.</li>
+        <li><strong>Login/Logout:</strong> Use the button in the header to switch between login states.</li>
+      </ul>
+      <p>Tip: Always fill in the event name, date, and time when adding a new event.</p>
+    </div>
+  );
+}
 
 export default Help;
+

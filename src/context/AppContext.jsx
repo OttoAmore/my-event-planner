@@ -1,25 +1,38 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
+// Create the context
 export const AppContext = createContext();
 
-export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(null);       // Stores logged-in user
-  const [events, setEvents] = useState([]);     // Stores user events
+// Create a provider component
+export function AppProvider({ children }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [events, setEvents] = useState([]);
 
-  const login = (userData) => setUser(userData);
-  const logout = () => setUser(null);
+  // Toggle login/logout
+  const toggleLogin = () => setIsLoggedIn(!isLoggedIn);
 
-  const addEvent = (event) => setEvents([...events, event]);
-  const updateEvent = (id, updatedEvent) => {
-    setEvents(events.map(ev => ev.id === id ? updatedEvent : ev));
+  // Add a new event
+  const addEvent = (event) => {
+    setEvents([...events, event]);
   };
-  const deleteEvent = (id) => {
-    setEvents(events.filter(ev => ev.id !== id));
+
+  // Delete an event by index
+  const deleteEvent = (index) => {
+    const newEvents = events.filter((_, i) => i !== index);
+    setEvents(newEvents);
   };
 
   return (
-    <AppContext.Provider value={{ user, login, logout, events, addEvent, updateEvent, deleteEvent }}>
+    <AppContext.Provider
+      value={{
+        isLoggedIn,
+        toggleLogin,
+        events,
+        addEvent,
+        deleteEvent,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
-};
+}
